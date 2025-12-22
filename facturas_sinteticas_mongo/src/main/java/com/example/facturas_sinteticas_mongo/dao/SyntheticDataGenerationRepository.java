@@ -1,0 +1,14 @@
+package com.example.facturas_sinteticas_mongo.dao;
+
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.facturas_sinteticas_mongo.model.SyntheticDataGeneration;
+
+import reactor.core.publisher.Mono;
+
+
+@Repository("syntheticDataGenerationRepository")
+public interface SyntheticDataGenerationRepository extends ReactiveMongoRepository<SyntheticDataGeneration, String>{
+	Mono<SyntheticDataGeneration> save(SyntheticDataGeneration imperfection);
+}
