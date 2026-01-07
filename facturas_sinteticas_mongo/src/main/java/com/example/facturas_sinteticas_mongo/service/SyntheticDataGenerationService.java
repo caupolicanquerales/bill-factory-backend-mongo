@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.facturas_sinteticas_mongo.dao.SyntheticDataGenerationRepository;
 import com.example.facturas_sinteticas_mongo.model.SyntheticDataGeneration;
-import com.example.facturas_sinteticas_mongo.request.PromptGenerationRequest;
 import com.example.facturas_sinteticas_mongo.request.SyntheticDataGenerationRequest;
 import com.example.facturas_sinteticas_mongo.response.SyntheticDataGenerationResponse;
 
