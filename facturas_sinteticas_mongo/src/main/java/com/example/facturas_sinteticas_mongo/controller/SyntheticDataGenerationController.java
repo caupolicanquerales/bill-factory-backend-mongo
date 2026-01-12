@@ -16,6 +16,7 @@ import com.example.facturas_sinteticas_mongo.response.SyntheticDataGenerationRes
 import com.example.facturas_sinteticas_mongo.service.SyntheticDataGenerationService;
 
 import reactor.core.publisher.Mono;
+import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
@@ -38,17 +39,11 @@ public class SyntheticDataGenerationController {
 	
 	@GetMapping("/all-synthetic-data")
 	public Mono<ResponseEntity<AllSyntheticDataGenerationResponse>> getAllSyntheticData(){
-		return syntheticDataGenerationService.getAllSyntheticGeneration()
-				.collectList()
-				.map(list->{
-					if(list.isEmpty()) {
-						return ResponseEntity.ok(new AllSyntheticDataGenerationResponse());
-					}else {
-						var allSynthetic= new AllSyntheticDataGenerationResponse();
-						allSynthetic.setSynthetics(list);
-						return ResponseEntity.ok(allSynthetic);
-					}
-				});
+		return ResponseUtil.toListResponse(
+				syntheticDataGenerationService.getAllSyntheticGeneration(),
+				AllSyntheticDataGenerationResponse::new,
+				AllSyntheticDataGenerationResponse::setSynthetics
+		);
 	}
 	
 	@DeleteMapping("/delete-synthetic-data")

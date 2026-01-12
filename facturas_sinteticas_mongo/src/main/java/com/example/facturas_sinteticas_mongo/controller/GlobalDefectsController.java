@@ -16,6 +16,7 @@ import com.example.facturas_sinteticas_mongo.response.GlobalDefectResponse;
 import com.example.facturas_sinteticas_mongo.service.GlobalDefectService;
 
 import reactor.core.publisher.Mono;
+import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
@@ -38,17 +39,11 @@ public class GlobalDefectsController {
 	
 	@GetMapping("/all-global-defect")
 	public Mono<ResponseEntity<AllGlobalDefectResponse>> getAllGlobalDefect(){
-		return globalDefectService.getAllGlobalDefect()
-				.collectList()
-				.map(list->{
-					if(list.isEmpty()) {
-						return ResponseEntity.ok(new AllGlobalDefectResponse());
-					}else {
-						var allDefect= new AllGlobalDefectResponse();
-						allDefect.setDefects(list);
-						return ResponseEntity.ok(allDefect);
-					}
-				});
+		return ResponseUtil.toListResponse(
+				globalDefectService.getAllGlobalDefect(),
+				AllGlobalDefectResponse::new,
+				AllGlobalDefectResponse::setDefects
+		);
 	}
 	
 	@DeleteMapping("/delete-global-defect")

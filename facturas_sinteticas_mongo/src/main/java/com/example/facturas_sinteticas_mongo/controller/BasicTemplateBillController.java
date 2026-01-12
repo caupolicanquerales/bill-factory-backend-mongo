@@ -17,6 +17,7 @@ import com.example.facturas_sinteticas_mongo.response.BasicTemplateResponse;
 import com.example.facturas_sinteticas_mongo.service.BasicTemplateBillService;
 
 import reactor.core.publisher.Mono;
+import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
@@ -39,17 +40,11 @@ public class BasicTemplateBillController {
 	
 	@GetMapping("/all-basic-template")
 	public Mono<ResponseEntity<AllBasicTemplateResponse>> getAllBasicTemplates(){
-		return basicTemplateBillService.getAllBasicTemplate()
-				.collectList()
-				.map(list->{
-					if(list.isEmpty()) {
-						return ResponseEntity.ok(new AllBasicTemplateResponse());
-					}else {
-						var allTemplates= new AllBasicTemplateResponse();
-						allTemplates.setBasicTemplates(list);
-						return ResponseEntity.ok(allTemplates);
-					}
-				});
+		return ResponseUtil.toListResponse(
+				basicTemplateBillService.getAllBasicTemplate(),
+				AllBasicTemplateResponse::new,
+				AllBasicTemplateResponse::setBasicTemplates
+		);
 	}
 	
 	@DeleteMapping("/delete-basic-template")

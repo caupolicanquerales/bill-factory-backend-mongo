@@ -16,6 +16,7 @@ import com.example.facturas_sinteticas_mongo.response.PromptGenerationResponse;
 import com.example.facturas_sinteticas_mongo.service.PromptGenerationImageService;
 
 import reactor.core.publisher.Mono;
+import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
@@ -38,17 +39,11 @@ public class PromptGenerationImageController {
 	
 	@GetMapping("/all-image-prompt")
 	public Mono<ResponseEntity<AllPromptGenerationResponse>> getAllPrompts(){
-		return promptGenerationImageService.getAllPromptGeneration()
-				.collectList()
-				.map(list->{
-					if(list.isEmpty()) {
-						return ResponseEntity.ok(new AllPromptGenerationResponse());
-					}else {
-						var allPrompt= new AllPromptGenerationResponse();
-						allPrompt.setPrompts(list);
-						return ResponseEntity.ok(allPrompt);
-					}
-				});
+		return ResponseUtil.toListResponse(
+				promptGenerationImageService.getAllPromptGeneration(),
+				AllPromptGenerationResponse::new,
+				AllPromptGenerationResponse::setPrompts
+		);
 	}
 	
 	

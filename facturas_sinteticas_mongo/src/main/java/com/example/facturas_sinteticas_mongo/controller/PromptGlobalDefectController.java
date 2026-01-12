@@ -16,6 +16,7 @@ import com.example.facturas_sinteticas_mongo.service.PromptGenerationBillService
 import com.example.facturas_sinteticas_mongo.service.PromptGlobalDefectService;
 
 import reactor.core.publisher.Mono;
+import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
@@ -38,17 +39,11 @@ public class PromptGlobalDefectController {
 	
 	@GetMapping("/all-global-defect-prompt")
 	public Mono<ResponseEntity<AllPromptGenerationResponse>> getAllPromptGlobalDefect(){
-		return promptGlobalDefectService.getAllPromptGlobalDefect()
-				.collectList()
-				.map(list->{
-					if(list.isEmpty()) {
-						return ResponseEntity.ok(new AllPromptGenerationResponse());
-					}else {
-						var allPrompt= new AllPromptGenerationResponse();
-						allPrompt.setPrompts(list);
-						return ResponseEntity.ok(allPrompt);
-					}
-				});
+		return ResponseUtil.toListResponse(
+				promptGlobalDefectService.getAllPromptGlobalDefect(),
+				AllPromptGenerationResponse::new,
+				AllPromptGenerationResponse::setPrompts
+		);
 	}
 	
 	
