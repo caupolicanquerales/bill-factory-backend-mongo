@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.facturas_sinteticas_mongo.request.PromptGenerationRequest;
 import com.example.facturas_sinteticas_mongo.response.AllPromptGenerationResponse;
 import com.example.facturas_sinteticas_mongo.response.PromptGenerationResponse;
-import com.example.facturas_sinteticas_mongo.service.PromptGenerationBillService;
 import com.example.facturas_sinteticas_mongo.service.PromptGlobalDefectService;
 
 import reactor.core.publisher.Mono;
@@ -20,7 +19,7 @@ import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${app.frontend.url}")
 public class PromptGlobalDefectController {
 	
 	private final PromptGlobalDefectService promptGlobalDefectService;

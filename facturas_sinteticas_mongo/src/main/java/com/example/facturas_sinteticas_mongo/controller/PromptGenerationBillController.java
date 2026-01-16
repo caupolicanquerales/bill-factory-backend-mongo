@@ -20,7 +20,7 @@ import com.example.facturas_sinteticas_mongo.service.utils.ResponseUtil;
 
 @RestController
 @RequestMapping("mongo")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${app.frontend.url}")
 public class PromptGenerationBillController {
 	
 	private final PromptGenerationBillService promptGenerationBillService;

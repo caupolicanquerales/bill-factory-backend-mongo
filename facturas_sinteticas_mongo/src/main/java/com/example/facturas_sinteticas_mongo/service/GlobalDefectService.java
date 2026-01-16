@@ -9,7 +9,6 @@ import com.example.facturas_sinteticas_mongo.dao.GlobalDefectMongoRepository;
 import com.example.facturas_sinteticas_mongo.model.GlobalDefect;
 import com.example.facturas_sinteticas_mongo.request.GlobalDefectRequest;
 import com.example.facturas_sinteticas_mongo.response.GlobalDefectResponse;
-import com.example.facturas_sinteticas_mongo.response.PromptGenerationResponse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

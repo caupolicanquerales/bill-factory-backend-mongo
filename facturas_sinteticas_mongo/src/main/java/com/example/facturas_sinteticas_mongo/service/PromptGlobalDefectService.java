@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.example.facturas_sinteticas_mongo.dao.PromptGlobalDefectRepository;
-import com.example.facturas_sinteticas_mongo.model.PromptGenerationBill;
 import com.example.facturas_sinteticas_mongo.model.PromptGlobalDefect;
 import com.example.facturas_sinteticas_mongo.request.PromptGenerationRequest;
 import com.example.facturas_sinteticas_mongo.response.PromptGenerationResponse;
